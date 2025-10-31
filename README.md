@@ -1,5 +1,15 @@
 # 🖨️ Sistema Distribuído de Impressão com Exclusão Mútua (Ricart–Agrawala)
 
+## Autores
+
+- Pedro Rodrigues Alves
+- Lucas Quaresma
+- Gabriel Gualtieri
+
+## Orientador
+
+- Matheus
+
 ## 📖 Descrição
 Este projeto implementa um sistema distribuído onde múltiplos clientes competem
 pelo acesso exclusivo a um servidor de impressão **burro**, utilizando:
@@ -23,9 +33,10 @@ pelo acesso exclusivo a um servidor de impressão **burro**, utilizando:
 
 ## ⚙️ Instalação
 
-```bash
-pip install grpcio grpcio-tools protobuf
-python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. distributed_printing.proto
+```bash 
+ pip install grpcio grpcio-tools protobuf
+ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. distributed_printing.proto
+```
 
 ## ⚙️ Execução
 
