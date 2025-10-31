@@ -1,24 +1,29 @@
 @echo off
-REM =========================================
-REM Script para iniciar servidor e clientes
-REM =========================================
+REM ==========================================
+REM Executa o servidor burro e 3 clientes
+REM ==========================================
+set SERVER_PORT=50051
+set CLIENT1_PORT=50052
+set CLIENT2_PORT=50053
+set CLIENT3_PORT=50054
 
-REM Servidor burro
-start cmd /k "python printer_server.py --port 50051"
+echo Iniciando servidor de impressão...
+start cmd /k python printer_server.py --port %SERVER_PORT%
 
-REM Pausa curta para garantir que o servidor suba antes dos clientes
-timeout /t 2 /nobreak >nul
+timeout /t 2 >nul
 
-REM Cliente 1
-start cmd /k "python printing_client.py --id 1 --server localhost:50051 --port 50052 --clients localhost:50053,localhost:50054"
+echo Iniciando Cliente 1...
+start cmd /k python printing_client.py --id 1 --server localhost:%SERVER_PORT% --port %CLIENT1_PORT% --clients localhost:%CLIENT2_PORT%,localhost:%CLIENT3_PORT%
 
-REM Cliente 2
-start cmd /k "python printing_client.py --id 2 --server localhost:50051 --port 50053 --clients localhost:50052,localhost:50054"
+timeout /t 1 >nul
 
-REM Cliente 3
-start cmd /k "python printing_client.py --id 3 --server localhost:50051 --port 50054 --clients localhost:50052,localhost:50053"
+echo Iniciando Cliente 2...
+start cmd /k python printing_client.py --id 2 --server localhost:%SERVER_PORT% --port %CLIENT2_PORT% --clients localhost:%CLIENT1_PORT%,localhost:%CLIENT3_PORT%
 
-echo ==================================================
-echo 🚀 Todos os processos iniciados!
-echo ==================================================
+timeout /t 1 >nul
+
+echo Iniciando Cliente 3...
+start cmd /k python printing_client.py --id 3 --server localhost:%SERVER_PORT% --port %CLIENT3_PORT% --clients localhost:%CLIENT1_PORT%,localhost:%CLIENT2_PORT%
+
+echo Todos os processos foram iniciados.
 pause
