@@ -1,0 +1,2 @@
+cd C:\hHhH\PERIODO_6\ComputaçãoDistribuida\TrabalhoPratico1_ComputacaoDistribuida
+python3 printer_server.py
