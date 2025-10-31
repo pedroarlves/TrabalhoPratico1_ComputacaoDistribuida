@@ -60,7 +60,8 @@ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. distributed_p
 ---
 
 ## 🚀 Execução
-*OBSERVAÇÃO:* REALIZE OS TESTES MANUAIS NO CMD
+
+**OBSERVAÇÃO:** REALIZE OS TESTES MANUAIS NO CMD
 
 ### 🖨️ Servidor de impressão (burro)
 
