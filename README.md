@@ -12,13 +12,13 @@ pelo acesso exclusivo a um servidor de impressão **burro**, utilizando:
 
 ## 🧱 Estrutura
 
-distributed_printing/
-├── distributed_printing.proto
-├── printer_server.py
-├── client.py
-├── start_printer.sh
-├── start_client.sh
-└── README.md
+- distributed_printing/
+- ├── distributed_printing.proto
+- ├── printer_server.py
+- ├── printing_client.py
+- ├── start_printer.sh
+- ├── start_client.sh
+- └── README.md
 ---
 
 ## ⚙️ Instalação

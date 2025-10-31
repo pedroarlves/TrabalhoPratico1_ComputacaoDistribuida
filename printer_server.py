@@ -1,3 +1,4 @@
+# printer_server.py
 import time
 import grpc
 from concurrent import futures
@@ -8,9 +9,10 @@ import distributed_printing_pb2_grpc as rpc
 class PrintingService(rpc.PrintingServiceServicer):
     def SendToPrinter(self, request, context):
         print("\n🖨️  RECEBIDO PEDIDO DE IMPRESSÃO")
-        print(f"Cliente: {request.client_id}")
-        print(f"Mensagem: {request.message_content}")
-        print(f"Timestamp Lamport: {request.lamport_timestamp}")
+        print(f"  Cliente: {request.client_id}")
+        print(f"  Mensagem: {request.message_content}")
+        print(f"  Timestamp Lamport (do cliente): {request.lamport_timestamp}")
+        # Simula tempo de impressão
         time.sleep(2)
         print(f"✅ IMPRESSO: [TS: {request.lamport_timestamp}] CLIENTE {request.client_id}: {request.message_content}\n")
         return pb.PrintResponse(
