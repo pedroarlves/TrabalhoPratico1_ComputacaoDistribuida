@@ -2,18 +2,21 @@ syntax = "proto3";
 
 package distributed_printing;
 
-// Serviço para o servidor de impressão BURRO (implementado no servidor)
+// Serviço do servidor burro de impressão
 service PrintingService {
   rpc SendToPrinter (PrintRequest) returns (PrintResponse);
 }
 
-// Serviço para comunicação entre CLIENTES (implementado nos clientes)
+// Serviço para comunicação entre clientes (Mutual Exclusion)
 service MutualExclusionService {
   rpc RequestAccess (AccessRequest) returns (AccessResponse);
-  //rpc ReleaseAccess (AccessRelease) returns (AccessResponse);
+  rpc SendReply (ReplyMessage) returns (EmptyResponse);
+  rpc ReleaseAccess (AccessRelease) returns (EmptyResponse);
 }
 
-// Mensagens para impressão (cliente -> servidor burro)
+// ------------------- Mensagens -------------------
+
+// CLIENTE -> SERVIDOR BURRO
 message PrintRequest {
   int32 client_id = 1;
   string message_content = 2;
@@ -27,7 +30,7 @@ message PrintResponse {
   int64 lamport_timestamp = 3;
 }
 
-// Mensagens para exclusão mútua (cliente <-> cliente)
+// CLIENTE <-> CLIENTE
 message AccessRequest {
   int32 client_id = 1;
   int64 lamport_timestamp = 2;
@@ -35,7 +38,7 @@ message AccessRequest {
 }
 
 message AccessResponse {
-  bool access_granted = 1;
+  bool ack = 1; // verdadeiro sempre que resposta foi entregue (para simplificar)
   int64 lamport_timestamp = 2;
 }
 
@@ -44,3 +47,12 @@ message AccessRelease {
   int64 lamport_timestamp = 2;
   int32 request_number = 3;
 }
+
+// Mensagem de resposta adiada (enviada por SendReply)
+message ReplyMessage {
+  int32 from_client_id = 1;
+  int64 lamport_timestamp = 2;
+}
+
+// Mensagem vazia
+message EmptyResponse {}
